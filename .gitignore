@@ -1,0 +1,8 @@
+api.log
+*/__pycache__/*
+.idea/*
+.vscode/*
+
+*.pyc
+sandbox.py
+env/*
