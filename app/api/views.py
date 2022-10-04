@@ -18,9 +18,6 @@ def api_root() -> str:
 def all_users():
     logging.info('Запрос: /users')
     data = app_dao.get_all_users()
-    print(data)
-    # print(len(data))
-    # return jsonify(data)
     return data
 
 

@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import render_template
 import prettytable
 from flask_sqlalchemy import SQLAlchemy
 from app.dao import database
 from app.api.views import api_blueprint
 
+from app.dao.app_dao import AppDAO
 
 
 app = Flask(__name__)
@@ -47,7 +48,17 @@ def debug_method():
     # print(len(a))
 
 
+appDAO = AppDAO()
+
+
 if __name__ == '__main__':
-    database.setup_database()
     app.run(debug=True)
+    database.setup_database()
+
+    # a = appDAO.get_all_users()
+    # dict_ary =
+    # print(dict_ary)
+
+    # data = jsonify(a)
+
     # debug_method()

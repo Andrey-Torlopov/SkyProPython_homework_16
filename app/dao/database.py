@@ -17,12 +17,27 @@ class User(db.Model):
     phone = db.Column(db.Text(20))
     offers = relationship('Offer')
 
+    def to_dict(self) -> dict[str, any]:
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "age": self.age
+        }
+
 
 class Offer(db.Model):
     __tablename__ = 'offers'
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
     executor_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    def to_dict(self) -> dict[str, any]:
+        return {
+            "id": self.id,
+            "order_id": self.order_id,
+            "executor_id": self.executor_id
+        }
 
 
 class Order(db.Model):
@@ -40,6 +55,13 @@ class Order(db.Model):
     customer = relationship("User", foreign_keys=[customer_id], backref='customer', lazy=True)
     executor = relationship("User", foreign_keys=[executor_id])
 
+    def to_dict(self) -> dict[str, any]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "price": self.price
+        }
 
 def setup_database():
     db.drop_all()

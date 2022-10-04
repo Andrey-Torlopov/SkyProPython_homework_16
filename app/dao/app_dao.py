@@ -6,5 +6,6 @@ from app.dao import database
 class AppDAO:
 
     def get_all_users(self):
-        result = database.User.query.all()
+        data = database.db.session().query(database.User).all()
+        result = list(map(lambda x: x.to_dict(), data))
         return result
