@@ -1,12 +1,11 @@
 import logging
 
 from flask import Blueprint, jsonify
-
-# from app.dao.app_dao import AppDAO
+from app.dao.app_dao import AppDAO
 
 
 api_blueprint = Blueprint('api_blueprint', __name__)
-# app_dao = AppDAO()
+app_dao = AppDAO()
 
 
 @api_blueprint.route('/', methods=['GET'])
@@ -18,34 +17,18 @@ def api_root() -> str:
 @api_blueprint.route("/users", methods=['GET'])
 def all_users():
     logging.info('Запрос: /users')
-    data = [
-                {
-                    "id": 1,
-                    "first_name": "Hudson",
-                    "last_name": "Pauloh",
-                    "age": 31,
-                    "email": "elliot16@mymail.com",
-                    "role": "customer",
-                    "phone": "6197021684"
-                },
-                {
-                    "id": 2,
-                    "first_name": "George",
-                    "last_name": "Matter",
-                    "age": 41,
-                    "email": "lawton46@mymail.com",
-                    "role": "executor",
-                    "phone": "8314786677"
-                }
-            ]
-    return jsonify(data)
+    data = app_dao.get_all_users()
+    print(data)
+    # print(len(data))
+    # return jsonify(data)
+    return data
 
 
 @api_blueprint.route("/users/<int:id>", methods=['GET'])
 def user_by_id(id: int):
     logging.info(f'Запрос: /users/{id}')
     data = {
-                    "id": 1,
+            "id": 1,
                     "first_name": "Hudson",
                     "last_name": "Pauloh",
                     "age": 31,
