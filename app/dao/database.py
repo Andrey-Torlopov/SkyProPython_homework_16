@@ -1,9 +1,8 @@
 import json
 
 from sqlalchemy.orm import relationship
-import run
+from run import db
 
-db = run.db
 
 # Database models
 class User(db.Model):

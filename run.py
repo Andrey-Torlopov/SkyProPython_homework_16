@@ -54,11 +54,7 @@ appDAO = AppDAO()
 if __name__ == '__main__':
     app.run(debug=True)
     database.setup_database()
-
-    # a = appDAO.get_all_users()
-    # dict_ary =
-    # print(dict_ary)
-
-    # data = jsonify(a)
+    a = appDAO.get_all_users()
+    print(a)
 
     # debug_method()
