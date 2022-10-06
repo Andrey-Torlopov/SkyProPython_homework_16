@@ -25,6 +25,38 @@ class User(db.Model):
         }
 
 
+    def update_user(self, params: [str, str]):
+        try:
+            self.first_name = params["first_name"]
+        except KeyError:
+            ...
+
+        try:
+            self.last_name = params["last_name"]
+        except KeyError:
+            ...
+
+        try:
+            self.age = params["age"]
+        except KeyError:
+            ...
+
+        try:
+            self.email = params["email"]
+        except KeyError:
+            ...
+
+        try:
+            self.role = params["role"]
+        except KeyError:
+            ...
+
+        try:
+            self.phone = params["phone"]
+        except KeyError:
+            ...
+
+
 class Offer(db.Model):
     __tablename__ = 'offers'
     id = db.Column(db.Integer, primary_key=True)

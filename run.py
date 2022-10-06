@@ -1,17 +1,16 @@
-from flask import Flask, jsonify
-from flask import render_template
 import prettytable
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from app.dao import database
 from app.api.views import api_blueprint
-
 from app.dao.app_dao import AppDAO
 
 
 app = Flask(__name__)
 app.register_blueprint(api_blueprint)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app)
 
 
@@ -43,18 +42,13 @@ def debug_method():
     mytable = prettytable.from_db_cursor(cursor)
     mytable.max_width = 30
     print(mytable)
-    # a = session.query(database.User).all()
-    # print("*"*50)
-    # print(len(a))
 
 
 appDAO = AppDAO()
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
     database.setup_database()
-    a = appDAO.get_all_users()
-    print(a)
-
-    # debug_method()
+    app.run(debug=True)
+    # a = appDAO.get_user_by_id(1)
+    # print(a)
