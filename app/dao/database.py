@@ -94,6 +94,42 @@ class Order(db.Model):
             "price": self.price
         }
 
+    def update(self, params: [str, str]):
+        try:
+            self.name = params["name"]
+        except KeyError:
+            ...
+
+        try:
+            self.description = params["description"]
+        except KeyError:
+            ...
+
+        try:
+            self.start_date = params["start_date"]
+        except KeyError:
+            ...
+
+        try:
+            self.end_date = params["end_date"]
+        except KeyError:
+            ...
+
+        try:
+            self.address = params["address"]
+        except KeyError:
+            ...
+
+        try:
+            self.customer_id = params["customer_id"]
+        except KeyError:
+            ...
+
+        try:
+            self.executor_id = params["executor_id"]
+        except KeyError:
+            ...
+
 def setup_database():
     db.drop_all()
     db.create_all()

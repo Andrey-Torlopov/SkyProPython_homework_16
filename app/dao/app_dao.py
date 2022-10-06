@@ -60,10 +60,65 @@ class AppDAO:
 
     def delete_user(self, id: int) -> str:
         user = database.User.query.get(id)
-
         try:
             database.db.session.delete(user)
             database.db.session.commit()
             return f'Пользователь удаден! '
         except Exception:
             return 'Не удалось удалить пользователя'
+
+    def add_order(self, json: dict[str, str]) -> str:
+        try:
+            model = database.Order(**json)
+            with database.db.session.begin():
+                database.db.session.add_all([model])
+            return f'Заказ добавлен'
+        except Exception:
+            return 'Не удалось добавить заказ'
+
+    def update_order(self, id: int, json: dict[str, str]) -> str:
+        model = database.Order.query.get(id)
+        try:
+            model.update(json)
+            database.db.session.add(model)
+            database.db.session.commit()
+            return 'Заказ обновлен!'
+        except Exception:
+            return 'Не удалось обновить заказ'
+
+    def delete_order(self, id: int) -> str:
+        model = database.Order.query.get(id)
+        try:
+            database.db.session.delete(model)
+            database.db.session.commit()
+            return f'Заказ удаден! '
+        except Exception:
+            return 'Не удалось удалить заказ'
+
+    def add_offer(self, json: dict[str, str]) -> str:
+        try:
+            model = database.Offer(**json)
+            with database.db.session.begin():
+                database.db.session.add_all([model])
+            return f'Предложение добавлено'
+        except Exception:
+            return 'Не удалось добавить предложение'
+
+    def update_offer(self, id: int, json: dict[str, str]) -> str:
+        model = database.Offer.query.get(id)
+        try:
+            model.update(json)
+            database.db.session.add(model)
+            database.db.session.commit()
+            return 'Предложение обновлено!'
+        except Exception:
+            return 'Не удалось обновить предложение'
+
+    def delete_offer(self, id: int) -> str:
+        model = database.Offer.query.get(id)
+        try:
+            database.db.session.delete(model)
+            database.db.session.commit()
+            return f'Предложение удадено! '
+        except Exception:
+            return 'Не удалось удалить предложение'

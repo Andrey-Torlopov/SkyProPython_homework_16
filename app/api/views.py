@@ -69,3 +69,30 @@ def update_user(id: int):
 @api_blueprint.route("/users/<int:id>", methods=['DELETE'])
 def delete_user(id: int):
     return app_dao.delete_user(id=id)
+
+
+@api_blueprint.route("/orders", methods=['POST'])
+def add_order():
+    return app_dao.add_order(json=request.json)
+
+@api_blueprint.route("/orders/<int:id>", methods=['PUT'])
+def update_order(id: int):
+    return app_dao.update_order(id=id, json=request.json)
+
+
+@api_blueprint.route("/orders/<int:id>", methods=['DELETE'])
+def delete_order(id: int):
+    return app_dao.delete_order(id=id)
+
+@api_blueprint.route("/offers", methods=['POST'])
+def add_offer():
+    return app_dao.add_offer(json=request.json)
+
+@api_blueprint.route("/offers/<int:id>", methods=['PUT'])
+def update_offer(id: int):
+    return app_dao.update_offer(id=id, json=request.json)
+
+
+@api_blueprint.route("/offers/<int:id>", methods=['DELETE'])
+def delete_offer(id: int):
+    return app_dao.delete_offer(id=id)
