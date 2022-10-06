@@ -14,7 +14,7 @@ class User(db.Model):
     email = db.Column(db.Text(50))
     role = db.Column(db.Text(50))
     phone = db.Column(db.Text(20))
-    offers = relationship('Offer')
+    offers = relationship('Offer', cascade="all, delete")
 
     def to_dict(self) -> dict[str, any]:
         return {
@@ -83,8 +83,8 @@ class Order(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     executor_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    customer = relationship("User", foreign_keys=[customer_id], backref='customer', lazy=True)
-    executor = relationship("User", foreign_keys=[executor_id])
+    customer = relationship("User", foreign_keys=[customer_id], backref='customer', lazy=True, cascade="all, delete")
+    executor = relationship("User", foreign_keys=[executor_id], cascade="all, delete")
 
     def to_dict(self) -> dict[str, any]:
         return {
